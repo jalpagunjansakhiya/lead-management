@@ -2,28 +2,28 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Models\Lead;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateLeadRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'company_name' => ['nullable', 'string', 'max:255'],
+            'status' => ['required', Rule::in(Lead::STATUSES)],
+            'source' => ['required', Rule::in(Lead::SOURCES)],
+            'assigned_to' => ['nullable', 'exists:users,id'],
+            'notes' => ['nullable', 'string'],
         ];
     }
 }
