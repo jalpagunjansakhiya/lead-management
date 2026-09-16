@@ -28,8 +28,7 @@
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600">Status</label>
-                    <select name="status" class="border-gray-300 rounded-md text-sm">
-                        <option value="">All</option>
+                    <select name="status" onchange="this.form.submit()" class="border-gray-300 rounded-md text-sm">                        <option value="">All</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status }}" @selected(($filters['status'] ?? '') === $status)>
                                 {{ ucfirst($status) }}
@@ -39,8 +38,7 @@
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600">Source</label>
-                    <select name="source" class="border-gray-300 rounded-md text-sm">
-                        <option value="">All</option>
+                    <select name="source" onchange="this.form.submit()" class="border-gray-300 rounded-md text-sm">                        <option value="">All</option>
                         @foreach ($sources as $source)
                             <option value="{{ $source }}" @selected(($filters['source'] ?? '') === $source)>
                                 {{ ucfirst(str_replace('_', ' ', $source)) }}
