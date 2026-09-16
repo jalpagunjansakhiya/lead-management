@@ -43,11 +43,16 @@ class LeadPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Lead $lead): bool
+    /* public function delete(User $user, Lead $lead): bool
     {
         return false;
-    }
+    } */
 
+    public function delete(User $user, Lead $lead): bool
+    {
+        return $user->is_admin || $user->id === $lead->created_by;
+    }
+    
     /**
      * Determine whether the user can restore the model.
      */
